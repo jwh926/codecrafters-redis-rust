@@ -11,9 +11,11 @@ fn main() {
         match stream {
             Ok(mut s) => {
                 println!("accepted new connection");
-                let mut buf: [u8; 1024] = [0; 1024];
-                s.read(&mut buf).unwrap();
-                s.write(b"+PONG\r\n").unwrap();
+                loop {
+                    let mut buf: [u8; 1024] = [0; 1024];
+                    s.read(&mut buf).unwrap();
+                    s.write(b"+PONG\r\n").unwrap();
+                }
             }
             Err(e) => {
                 println!("error: {}", e);
