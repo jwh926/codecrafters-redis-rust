@@ -18,6 +18,7 @@ async fn main() {
 
     loop {
         let (stream, _) = listener.accept().await.unwrap();
+        println!("accepted new connection");
         let db = Arc::clone(&db);
         tokio::spawn(async move {
             handle_conn(stream, db).await;
