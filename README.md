@@ -1,3 +1,17 @@
+This is my redis clone in Rust programming language for study. Mostly written by someone's code examples and Github Copilot.
+
+Features that are currently implemented:
+
+- concurrent connection
+- `PING`
+- `ECHO`
+- `SET & GET`
+- expiry(`PX`, `EX`)
+
+Below is the original contents from Codecrafters.
+
+---
+
 [![progress-banner](https://backend.codecrafters.io/progress/redis/01b50b59-6c71-444f-b406-d6f34a6f0c4c)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
 This is a starting point for Rust solutions to the
