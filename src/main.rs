@@ -38,11 +38,10 @@ async fn handle_conn(
 
         let response = if let Some(v) = value {
             let (command, args) = extract_command(v).unwrap();
-            match command.as_str() {
-                "PING" => Value::SimpleString("PONG".to_string()),
-                "ECHO" => args.first().unwrap().clone(),
-                // "*3\r\n$3\r\nSET\r\n$3\r\nFOO\r\n$3\r\nBAR\r\n"
-                "SET" => {
+            match command.to_lowercase().as_str() {
+                "ping" => Value::SimpleString("PONG".to_string()),
+                "echo" => args.first().unwrap().clone(),
+                "set" => {
                     let key = unpack_bulk_str(args[0].clone()).unwrap();
                     let value = unpack_bulk_str(args[1].clone()).unwrap();
                     let expiry = if args.len() >= 3 {
@@ -66,7 +65,7 @@ async fn handle_conn(
                     db.insert(key, (value, expiry));
                     Value::SimpleString("OK".to_string())
                 }
-                "GET" => {
+                "get" => {
                     let key = unpack_bulk_str(args[0].clone()).unwrap();
                     let mut db = db.lock().unwrap();
                     match db.get(&key) {
